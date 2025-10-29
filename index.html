@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dynamic Delivery Simulator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="app.js" defer></script>
+
+    <style>
+        /* Basic CSS for a clean layout */
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; }
+        h1 { padding: 10px 20px; margin: 0; background-color: #3f51b5; color: white; }
+        #main-container { display: flex; height: calc(100vh - 160px); }
+        #controls { width: 350px; padding: 15px; background-color: white; border-right: 1px solid #ddd; overflow-y: auto; box-shadow: 2px 0 5px rgba(0,0,0,0.1); }
+        #map { flex-grow: 1; height: 100%; }
+        #output { height: 150px; padding: 10px; border-top: 1px solid #ddd; overflow-y: scroll; font-size: 0.9em; background-color: #e8eaf6; }
+        .input-group { margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        .input-group input[type="text"], .input-group input[type="number"] { width: 95%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box; }
+        .input-group button { width: 100%; padding: 10px; background-color: #4caf50; color: white; border: none; border-radius: 3px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        .input-group button:hover { background-color: #43a047; }
+        .log-error { color: #d32f2f; font-weight: bold; }
+        .log-success { color: #388e3c; }
+    </style>
+</head>
+<body>
+<h1>Dynamic Delivery Network Simulator</h1>
+
+<div id="main-container">
+    <div id="controls">
+        <div class="input-group">
+            <h2>1. Add Delivery Order</h2>
+            <label>Order ID:</label><input type="text" id="tfOrderId" value="ORD001">
+            <label>Destination (A, B, C, D, DEPOT):</label><input type="text" id="tfTaskDest" value="C">
+            <label>Deadline (Minutes):</label><input type="number" id="tfTaskDeadline" value="50">
+            <label>Importance (1-5):</label><input type="number" id="tfTaskImportance" value="5">
+            <button onclick="handleAddTask()">Add Order</button>
+        </div>
+
+        <div class="input-group">
+            <h2>2. Run Simulation</h2>
+            <label>Start Location:</label><input type="text" id="tfStartLocation" value="DEPOT">
+            <label>Congestion Factor (e.g., 0.1):</label><input type="number" id="tfCongestionFactor" step="0.1" value="0.1">
+            <button onclick="handleStartSimulation()">▶ Start Simulation</button>
+        </div>
+    </div>
+
+    <div id="map"></div>
+</div>
+
+<div id="output">
+    <p>System Ready. Accessing Spring Boot Backend...</p>
+</div>
+</body>
+</html>
